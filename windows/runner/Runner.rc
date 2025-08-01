@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "purplestack" "\0"
+            VALUE "CompanyName", "NostrCal" "\0"
+            VALUE "FileDescription", "nostrcal" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "purplestack" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "purplestack.exe" "\0"
-            VALUE "ProductName", "purplestack" "\0"
+            VALUE "InternalName", "nostrcal" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 NostrCal. All rights reserved." "\0"
+            VALUE "OriginalFilename", "nostrcal.exe" "\0"
+            VALUE "ProductName", "nostrcal" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

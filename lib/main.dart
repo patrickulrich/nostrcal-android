@@ -6,8 +6,14 @@ import 'package:models/models.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:purplebase/purplebase.dart';
-import 'package:purplestack/router.dart';
-import 'package:purplestack/theme.dart';
+import 'package:amber_signer/amber_signer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:nostrcal/router.dart';
+import 'package:nostrcal/theme.dart';
+import 'models/models.dart';
+
+/// Provider for the Amber signer instance
+final amberSignerProvider = Provider<AmberSigner>(AmberSigner.new);
 
 void main() {
   runZonedGuarded(() {
@@ -18,7 +24,7 @@ void main() {
             (ref) => PurplebaseStorageNotifier(ref),
           ),
         ],
-        child: const PurplestackApp(),
+        child: const NostrcalApp(),
       ),
     );
   }, errorHandler);
@@ -30,12 +36,12 @@ void main() {
   };
 }
 
-class PurplestackApp extends ConsumerWidget {
-  const PurplestackApp({super.key});
+class NostrcalApp extends ConsumerWidget {
+  const NostrcalApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final title = 'Purplestack';
+    final title = 'NostrCal';
     final theme = ref.watch(themeProvider);
 
     return switch (ref.watch(appInitializationProvider)) {
@@ -82,8 +88,8 @@ class PurplestackApp extends ConsumerWidget {
   }
 }
 
-class PurplestackHome extends StatelessWidget {
-  const PurplestackHome({super.key});
+class NostrcalHome extends StatelessWidget {
+  const NostrcalHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,19 +99,27 @@ class PurplestackHome extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.rocket_launch,
-                size: 64,
-                color: Theme.of(context).colorScheme.primary,
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                child: const Icon(
+                  Icons.calendar_month,
+                  size: 40,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(height: 16),
               Text(
-                'Purplestack',
+                'NostrCal',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: 8),
               Text(
-                'Nostr-enabled Flutter development stack',
+                'Decentralized calendar on Nostr',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
@@ -125,19 +139,48 @@ void errorHandler(Object exception, StackTrace? stack) {
 
 final appInitializationProvider = FutureProvider<void>((ref) async {
   final dir = await getApplicationDocumentsDirectory();
+  
+  // Load saved relays from SharedPreferences
+  Set<String> defaultRelays = {
+    'wss://relay.damus.io',
+    'wss://relay.primal.net',
+    'wss://nos.lol',
+  };
+  
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    final savedRelays = prefs.getStringList('user_relays');
+    if (savedRelays != null && savedRelays.isNotEmpty) {
+      defaultRelays = savedRelays.toSet();
+    }
+  } catch (e) {
+    debugPrint('Failed to load saved relays during initialization: $e');
+  }
+  
   await ref.read(
     initializationProvider(
       StorageConfiguration(
-        databasePath: path.join(dir.path, 'purplestack.db'),
+        databasePath: path.join(dir.path, 'nostrcal.db'),
         relayGroups: {
-          'default': {
-            'wss://relay.damus.io',
-            'wss://relay.primal.net',
-            'wss://nos.lol',
-          },
+          'default': defaultRelays,
         },
         defaultRelayGroup: 'default',
       ),
     ).future,
+  );
+
+  // Register custom NostrCal models
+  // Note: CalendarEventRSVP (31925) is already registered in the models package
+  
+  Model.register(
+    kind: 31926,
+    constructor: CalendarAvailability.fromMap,
+    partialConstructor: (map) => PartialCalendarAvailability.fromMap(map),
+  );
+
+  Model.register(
+    kind: 31927,
+    constructor: CalendarAvailabilityBlock.fromMap,
+    partialConstructor: (map) => PartialCalendarAvailabilityBlock.fromMap(map),
   );
 });

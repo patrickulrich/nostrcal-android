@@ -1,6 +1,6 @@
-name: purplestack
+name: nostrcal
 description: Agentic development stack for building Nostr-enabled Flutter applications
-version: 0.2.0
+version: 0.1.0
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
@@ -46,6 +46,7 @@ dependencies:
   video_player: ^2.9.2
   just_audio: ^0.9.42
   args: ^2.7.0
+  shared_preferences: ^2.5.3
 
 dependency_overrides:
   models:
@@ -90,9 +91,10 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/favicon.svg
+    - assets/images/purplestack.png
+    - favicon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -119,3 +121,17 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+icons_launcher:
+  image_path: "favicon.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+    macos:
+      enable: true
+    windows:
+      enable: true
+    linux:
+      enable: true

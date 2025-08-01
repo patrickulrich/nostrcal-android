@@ -1,4 +1,4 @@
-package com.example.purplestack
+package com.nostrcal.app
 
 import io.flutter.embedding.android.FlutterActivity
 

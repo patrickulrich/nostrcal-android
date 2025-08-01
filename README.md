@@ -1,12 +1,68 @@
-# purplestack
+# NostrCal
 
 ![purplestack](assets/images/purplestack.png)
 
-Development stack designed for AI agents to build Nostr-enabled Flutter applications. It includes a complete tech stack based on Riverpod and Purplebase, along with documentation and recipes for common implementation scenarios.
+A decentralized calendar application built on the Nostr protocol. NostrCal enables users to create, discover, and manage calendar events in a censorship-resistant, peer-to-peer environment using NIP-52 calendar events.
 
-See [CONTEXT](CONTEXT.md) for more.
+## Features
 
-Originally created to build the new version of [Zapstore](https://zapstore.dev) and to encourage many more freedom oriented tech tools in the store.
+- **📅 Calendar Events**: Create and manage date-based (NIP-52 kind 31922) and time-based (NIP-52 kind 31923) calendar events
+- **🔍 Event Discovery**: Browse and search public calendar events with advanced filtering (by time, location, tags)
+- **📱 RSVP Support**: Respond to calendar events with NIP-52 kind 31925 RSVPs
+- **🔐 Nostr Authentication**: Secure login using Amber signer (NIP-55) for Android
+- **⚡ Real-time Updates**: Live event streaming from Nostr relays with local-first architecture
+- **🎨 Material 3 Design**: Modern, accessible interface with light/dark theme support
+- **📄 Pagination**: Efficient event loading with exponential pagination (100→200→400→800→1600)
+- **🏷️ Rich Event Details**: Support for titles, descriptions, locations, images, participants, hashtags, and references
+- **📊 Custom Availability**: Extended NIP-52 implementation with calendar availability templates and privacy-preserving busy blocks
+
+## NIP Compliance
+
+NostrCal implements and extends the NIP-52 specification:
+
+- **NIP-52 Core**: Date-based events (31922), time-based events (31923), calendars (31924), RSVPs (31925)
+- **NIP-52 Extensions**: Calendar availability (31926) and availability blocks (31927) for booking systems
+- **NIP-55**: Android signer integration with Amber
+- **NIP-44**: Encryption support for private events
+
+## Technology Stack
+
+Built with the Purplestack development framework, featuring:
+
+- **Flutter**: Cross-platform mobile development
+- **Riverpod**: Reactive state management
+- **Purplebase**: Local-first Nostr SDK with SQLite storage
+- **Material 3**: Modern design system
+- **Table Calendar**: Interactive calendar widget
+
+## Installation
+
+### Prerequisites
+
+- Android device (arm64-v8a architecture)
+- [Amber Signer](https://github.com/greenart7c3/Amber) installed for Nostr authentication
+
+### Download
+
+Download the latest APK from the releases or build from source.
+
+### Building from Source
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd purplestack
+
+# Install dependencies
+fvm flutter pub get
+
+# Build APK
+fvm flutter build apk --target-platform android-arm64 --split-per-abi
+```
+
+## Development
+
+This project uses the Purplestack development stack designed for AI agents to build Nostr-enabled Flutter applications.
 
 ## Sample environment setup
 

@@ -7,7 +7,8 @@
       "command": "bash",
       "args": [
         "tools/scripts/run-mcp.sh"
-      ]
+      ],
+      "cwd": "/home/asdr2/purplestack"
     },
     "nostr": {
       "type": "stdio",

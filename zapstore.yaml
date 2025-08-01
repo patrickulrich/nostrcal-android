@@ -1,0 +1,15 @@
+name: "NostrCal"
+summary: "A decentralized calendar application built for the Nostr protocol"
+description: |
+  NostrCal enables users to create, discover, and manage calendar events in a censorship-resistant, peer-to-peer environment using NIP-52 calendar events.
+
+  Features include calendar events, event discovery, RSVP support, Nostr authentication with Amber signer, real-time updates, and Material 3 design.
+repository: https://github.com/patrickulrich/nostrcal-android
+homepage: https://nostrcal.com
+icon: assets/images/purplestack.png
+license: MIT
+tags: nostr calendar android nip-52
+remote_metadata:
+  - github
+assets:
+  - "build/app/outputs/flutter-apk/app-arm64-v8a-release.apk"

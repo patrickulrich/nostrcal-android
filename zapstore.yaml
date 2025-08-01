@@ -12,4 +12,5 @@ tags: nostr calendar android nip-52
 remote_metadata:
   - github
 assets:
-  - "build/app/outputs/flutter-apk/app-arm64-v8a-release.apk"
+  - "app-arm64-v8a-release\\.apk"
+
